@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             AdminUserSeeder::class,
             RolePermissionSeeder::class,
             EstadoSeeder::class,
-            
+           
         ]);
 
 

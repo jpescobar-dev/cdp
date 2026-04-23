@@ -10,8 +10,7 @@ class EstadoSeeder extends Seeder
     {
         $this->call([
             EstadoPresupuestoSeeder::class,
-            EstadoRevisionContractualSeeder::class,
-            EstadoHallazgoRevisionSeeder::class,
+           
         ]);
     }
 }
