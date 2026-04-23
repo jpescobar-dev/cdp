@@ -1,2 +1,0 @@
-Route::post('revisiones/{revision}/analizar', [AnalisisRevisionContractualController::class, 'store'])
-->name('contractual.revisiones.analizar');

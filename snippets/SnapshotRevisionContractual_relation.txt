@@ -1,9 +1,0 @@
-Agregar al modelo App\Models\SnapshotRevisionContractual.php:
-
-use Illuminate\Database\Eloquent\Relations\HasMany;
-
-public function hallazgos(): HasMany
-{
-    return $this->hasMany(HallazgoRevisionContractual::class, 'snapshot_revision_contractual_id')
-        ->latest();
-}

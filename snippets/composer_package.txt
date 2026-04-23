@@ -1,8 +1,0 @@
-Instalar paquete para extracción de texto PDF:
-
-composer require spatie/pdf-to-text
-
-Requisito adicional:
-- Tener disponible el binario pdftotext en el servidor/entorno local.
-
-En Windows/Laragon, normalmente necesitas instalar Xpdf o Poppler y asegurar que pdftotext esté en PATH.

@@ -1,7 +1,0 @@
-Agregar al modelo App\Models\SnapshotRevisionContractual.php:
-
-public function checklist()
-{
-    return $this->hasMany(ChecklistRevisionContractual::class, 'snapshot_revision_contractual_id')
-        ->orderBy('orden');
-}

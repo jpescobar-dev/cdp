@@ -1,6 +1,0 @@
-// Agregar en routes/web.php
-
-use App\Http\Controllers\Contractual\AnalisisRevisionContractualController;
-
-Route::post('revisiones/{revision}/analizar', [AnalisisRevisionContractualController::class, 'store'])
-    ->name('revisiones.analizar');
