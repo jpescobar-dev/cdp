@@ -1,0 +1,875 @@
+
+/* =========================================================
+   THEME: Institutional Blue
+   Palette: blue, graphite black, white, subtle grays
+   Supports light/dark mode with [data-theme="dark"]
+   Load AFTER plugins.css
+   ========================================================= */
+
+/* ---------- 1) Design Tokens ---------- */
+:root {
+    --inst-primary: #1f4e79;
+    --inst-primary-strong: #163a5c;
+    --inst-primary-soft: rgba(31, 78, 121, 0.10);
+
+    --inst-graphite: #1f2937;
+    --inst-graphite-2: #374151;
+    --inst-graphite-3: #4b5563;
+
+    --inst-bg: #f4f7fa;
+    --inst-surface: #ffffff;
+    --inst-surface-2: #f8fafc;
+    --inst-surface-3: #eef2f6;
+
+    --inst-border: #d6dee8;
+    --inst-border-strong: #bcc8d6;
+
+    --inst-text: #1f2937;
+    --inst-text-soft: #5f6b7a;
+    --inst-text-muted: #7b8794;
+    --inst-heading: #16212f;
+
+    --inst-success: #4f7d5c;
+    --inst-success-soft: rgba(79, 125, 92, 0.10);
+
+    --inst-warning: #8b6a3d;
+    --inst-warning-soft: rgba(139, 106, 61, 0.10);
+
+    --inst-danger: #934454;
+    --inst-danger-soft: rgba(147, 68, 84, 0.10);
+
+    --inst-info: #4b6f92;
+    --inst-info-soft: rgba(75, 111, 146, 0.10);
+
+    --inst-shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.05);
+    --inst-shadow-md: 0 8px 24px rgba(15, 23, 42, 0.08);
+
+    --inst-radius-sm: 8px;
+    --inst-radius-md: 12px;
+    --inst-radius-lg: 16px;
+}
+
+[data-theme="dark"] {
+    --inst-primary: #6f9dca;
+    --inst-primary-strong: #8fb3d6;
+    --inst-primary-soft: rgba(111, 157, 202, 0.16);
+
+    --inst-graphite: #0f1720;
+    --inst-graphite-2: #17212d;
+    --inst-graphite-3: #243244;
+
+    --inst-bg: #0b1220;
+    --inst-surface: #111a27;
+    --inst-surface-2: #162130;
+    --inst-surface-3: #1a2636;
+
+    --inst-border: #2a3647;
+    --inst-border-strong: #33465d;
+
+    --inst-text: #e5edf5;
+    --inst-text-soft: #b9c4d1;
+    --inst-text-muted: #8ea0b5;
+    --inst-heading: #f3f7fb;
+
+    --inst-success: #88b494;
+    --inst-success-soft: rgba(136, 180, 148, 0.14);
+
+    --inst-warning: #c4a06b;
+    --inst-warning-soft: rgba(196, 160, 107, 0.14);
+
+    --inst-danger: #cf8792;
+    --inst-danger-soft: rgba(207, 135, 146, 0.14);
+
+    --inst-info: #8ab2d8;
+    --inst-info-soft: rgba(138, 178, 216, 0.14);
+
+    --inst-shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.25);
+    --inst-shadow-md: 0 10px 28px rgba(0, 0, 0, 0.35);
+}
+
+/* ---------- 2) Base ---------- */
+html,
+body {
+    background: var(--inst-bg) !important;
+    color: var(--inst-text) !important;
+}
+
+body {
+    letter-spacing: 0.01rem;
+}
+
+h1, h2, h3, h4, h5, h6,
+.page-title h3,
+.widget-one h6 {
+    color: var(--inst-heading) !important;
+    letter-spacing: 0.01em;
+    font-weight: 700;
+}
+
+p,
+span,
+label,
+small,
+.text-muted,
+.form-group label,
+label {
+    color: var(--inst-text-soft);
+}
+
+a {
+    color: var(--inst-primary);
+}
+
+a:hover,
+a:focus {
+    color: var(--inst-primary-strong);
+    text-decoration: none;
+}
+
+hr {
+    border-top-color: var(--inst-border);
+}
+
+code {
+    color: var(--inst-danger);
+    background: var(--inst-danger-soft);
+    padding: 0.1rem 0.35rem;
+    border-radius: 6px;
+}
+
+/* ---------- 3) Layout Containers ---------- */
+.main-container,
+#container,
+.content,
+.layout-px-spacing {
+    background: transparent !important;
+}
+
+.widget,
+.widget-content,
+.widget-one,
+.card,
+.card-body,
+.statbox,
+.info-box,
+.layout-top-spacing > .col-xl-12 > .widget-content-area,
+.widget-content-area {
+    background: var(--inst-surface) !important;
+    color: var(--inst-text) !important;
+    border: 1px solid var(--inst-border) !important;
+    border-radius: var(--inst-radius-md) !important;
+    box-shadow: var(--inst-shadow-sm) !important;
+}
+
+.widget-content-area {
+    padding: 1.25rem;
+}
+
+/* ---------- 4) Header / Navbar / Topbar ---------- */
+.header-container,
+.header.navbar,
+.topbar-nav.header.navbar,
+#topbar,
+.navbar,
+.sub-header-container {
+    background: var(--inst-surface) !important;
+    border-bottom: 1px solid var(--inst-border) !important;
+    box-shadow: none !important;
+}
+
+.navbar .navbar-brand,
+.navbar .nav-link,
+.topbar-nav .nav-link,
+.header-container .nav-link,
+.navbar-item .nav-item a,
+.list-unstyled.menu-categories li.menu > a {
+    color: var(--inst-text) !important;
+}
+
+.navbar .navbar-brand-name,
+.theme-text .nav-link {
+    color: var(--inst-heading) !important;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.header-container svg,
+.topbar-nav svg,
+.list-unstyled.menu-categories li.menu > a svg,
+.navbar-item svg {
+    color: var(--inst-primary) !important;
+}
+
+.list-unstyled.menu-categories li.menu > a {
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+.list-unstyled.menu-categories li.menu > a:hover,
+.list-unstyled.menu-categories li.menu > a[aria-expanded="true"] {
+    background: var(--inst-primary-soft) !important;
+    color: var(--inst-primary) !important;
+}
+
+.submenu {
+    background: var(--inst-surface) !important;
+    border: 1px solid var(--inst-border) !important;
+    border-radius: 12px !important;
+    box-shadow: var(--inst-shadow-sm) !important;
+}
+
+.submenu li a {
+    color: var(--inst-text-soft) !important;
+    border-radius: 8px;
+}
+
+.submenu li a:hover,
+.submenu li a.active {
+    background: var(--inst-primary-soft) !important;
+    color: var(--inst-primary) !important;
+}
+
+/* ---------- 5) Breadcrumb ---------- */
+.page-header {
+    border-bottom: 1px solid var(--inst-border);
+    padding-bottom: 0.75rem;
+    margin-bottom: 1.25rem;
+}
+
+.page-title {
+    border-right-color: var(--inst-border) !important;
+}
+
+.breadcrumb-one .breadcrumb-item a,
+.breadcrumb-one .breadcrumb-item {
+    color: var(--inst-text-soft) !important;
+}
+
+.breadcrumb-one .breadcrumb-item.active,
+.breadcrumb-one .breadcrumb-item.active a {
+    color: var(--inst-primary) !important;
+    font-weight: 700;
+}
+
+/* ---------- 6) Dropdowns ---------- */
+.dropdown-menu {
+    background: var(--inst-surface) !important;
+    border: 1px solid var(--inst-border) !important;
+    border-radius: 12px !important;
+    box-shadow: var(--inst-shadow-md) !important;
+}
+
+.dropdown-item,
+.dropdown-item a {
+    color: var(--inst-text) !important;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background: var(--inst-primary-soft) !important;
+    color: var(--inst-primary) !important;
+}
+
+/* ---------- 7) Buttons ---------- */
+.btn {
+    border-radius: 10px !important;
+    box-shadow: none !important;
+    font-weight: 600 !important;
+    border-width: 1px !important;
+    transition: all 0.2s ease !important;
+}
+
+.btn:hover,
+.btn:focus {
+    box-shadow: none !important;
+    transform: translateY(-1px);
+}
+
+.btn-primary {
+    background: var(--inst-primary) !important;
+    border-color: var(--inst-primary) !important;
+    color: #fff !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background: var(--inst-primary-strong) !important;
+    border-color: var(--inst-primary-strong) !important;
+}
+
+.btn-outline-primary {
+    background: transparent !important;
+    color: var(--inst-primary) !important;
+    border-color: rgba(31, 78, 121, 0.35) !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+    background: var(--inst-primary-soft) !important;
+    color: var(--inst-primary) !important;
+    border-color: rgba(31, 78, 121, 0.45) !important;
+}
+
+.btn-secondary,
+.btn-dark {
+    background: var(--inst-graphite-2) !important;
+    border-color: var(--inst-graphite-2) !important;
+    color: #fff !important;
+}
+
+.btn-outline-secondary,
+.btn-outline-dark {
+    background: transparent !important;
+    color: var(--inst-graphite-2) !important;
+    border-color: rgba(55, 65, 81, 0.35) !important;
+}
+
+.btn-outline-secondary:hover,
+.btn-outline-dark:hover {
+    background: rgba(55, 65, 81, 0.08) !important;
+}
+
+.btn-success {
+    background: var(--inst-success) !important;
+    border-color: var(--inst-success) !important;
+    color: #fff !important;
+}
+
+.btn-outline-success {
+    color: var(--inst-success) !important;
+    border-color: rgba(79, 125, 92, 0.35) !important;
+    background: transparent !important;
+}
+
+.btn-outline-success:hover {
+    background: var(--inst-success-soft) !important;
+}
+
+.btn-warning {
+    background: var(--inst-warning) !important;
+    border-color: var(--inst-warning) !important;
+    color: #fff !important;
+}
+
+.btn-outline-warning {
+    color: var(--inst-warning) !important;
+    border-color: rgba(139, 106, 61, 0.35) !important;
+    background: transparent !important;
+}
+
+.btn-outline-warning:hover {
+    background: var(--inst-warning-soft) !important;
+}
+
+.btn-danger {
+    background: var(--inst-danger) !important;
+    border-color: var(--inst-danger) !important;
+    color: #fff !important;
+}
+
+.btn-outline-danger {
+    color: var(--inst-danger) !important;
+    border-color: rgba(147, 68, 84, 0.35) !important;
+    background: transparent !important;
+}
+
+.btn-outline-danger:hover {
+    background: var(--inst-danger-soft) !important;
+}
+
+.btn-info {
+    background: var(--inst-info) !important;
+    border-color: var(--inst-info) !important;
+    color: #fff !important;
+}
+
+.btn-outline-info {
+    color: var(--inst-info) !important;
+    border-color: rgba(75, 111, 146, 0.35) !important;
+    background: transparent !important;
+}
+
+.btn-outline-info:hover {
+    background: var(--inst-info-soft) !important;
+}
+
+/* ---------- 8) Forms ---------- */
+.form-control,
+.custom-select,
+.custom-file-label,
+.input-group-text,
+select.form-control.form-custom {
+    background: var(--inst-surface) !important;
+    border: 1px solid var(--inst-border) !important;
+    color: var(--inst-text) !important;
+    border-radius: 10px !important;
+    box-shadow: none !important;
+}
+
+.form-control::placeholder,
+.custom-select::placeholder {
+    color: var(--inst-text-muted) !important;
+}
+
+.form-control:focus,
+.custom-select:focus,
+.custom-file-input:focus ~ .custom-file-label,
+select.form-control.form-custom:focus {
+    border-color: var(--inst-primary) !important;
+    box-shadow: 0 0 0 0.15rem rgba(31, 78, 121, 0.12) !important;
+    color: var(--inst-text) !important;
+}
+
+.input-group .input-group-prepend .input-group-text,
+.input-group .input-group-append .input-group-text {
+    background: var(--inst-surface-2) !important;
+    border-color: var(--inst-border) !important;
+}
+
+.input-group .input-group-prepend .input-group-text svg,
+.input-group .input-group-append .input-group-text svg {
+    color: var(--inst-primary) !important;
+}
+
+/* ---------- 9) Tables ---------- */
+.table {
+    color: var(--inst-text) !important;
+    background: transparent !important;
+}
+
+.table thead th,
+.table > thead > tr > th,
+.table tfoot th,
+.table > tfoot > tr > th {
+    color: var(--inst-primary) !important;
+    background: transparent !important;
+    border-color: var(--inst-border) !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.table td,
+.table th,
+.table > tbody > tr > td {
+    border-color: var(--inst-border) !important;
+    color: var(--inst-text) !important;
+    vertical-align: middle !important;
+}
+
+.table-bordered,
+.table-bordered td,
+.table-bordered th {
+    border-color: var(--inst-border) !important;
+}
+
+.table-hover tbody tr:hover,
+.table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th {
+    background: var(--inst-primary-soft) !important;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background: rgba(127, 143, 164, 0.05) !important;
+}
+
+.table.table-dark,
+.table-dark {
+    background: var(--inst-surface) !important;
+    color: var(--inst-text) !important;
+}
+
+.table-dark thead th,
+.table-dark td,
+.table-dark th,
+.table-dark tbody + tbody {
+    color: var(--inst-text) !important;
+    border-color: var(--inst-border) !important;
+}
+
+.dataTables_wrapper .dataTables_filter input,
+.dataTables_wrapper .dataTables_length select {
+    background: var(--inst-surface) !important;
+    border: 1px solid var(--inst-border) !important;
+    color: var(--inst-text) !important;
+    border-radius: 10px !important;
+}
+
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_filter label,
+.dataTables_wrapper .dataTables_length label,
+.dataTables_wrapper .dataTables_paginate {
+    color: var(--inst-text-soft) !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    border-radius: 8px !important;
+    border: 1px solid transparent !important;
+    color: var(--inst-text-soft) !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    background: var(--inst-primary-soft) !important;
+    border-color: rgba(31, 78, 121, 0.20) !important;
+    color: var(--inst-primary) !important;
+}
+
+/* ---------- 10) Badges ---------- */
+.badge,
+[class*="badge-"],
+[class*="outline-badge-"] {
+    font-weight: 600 !important;
+    font-size: 12px !important;
+    padding: 0.4rem 0.7rem !important;
+    border-radius: 999px !important;
+    box-shadow: none !important;
+    letter-spacing: 0.02em;
+}
+
+.badge-primary,
+.outline-badge-primary {
+    color: var(--inst-primary) !important;
+    background: var(--inst-primary-soft) !important;
+    border: 1px solid rgba(31, 78, 121, 0.28) !important;
+}
+
+.badge-success,
+.outline-badge-success {
+    color: var(--inst-success) !important;
+    background: var(--inst-success-soft) !important;
+    border: 1px solid rgba(79, 125, 92, 0.28) !important;
+}
+
+.badge-warning,
+.outline-badge-warning {
+    color: var(--inst-warning) !important;
+    background: var(--inst-warning-soft) !important;
+    border: 1px solid rgba(139, 106, 61, 0.28) !important;
+}
+
+.badge-danger,
+.outline-badge-danger {
+    color: var(--inst-danger) !important;
+    background: var(--inst-danger-soft) !important;
+    border: 1px solid rgba(147, 68, 84, 0.28) !important;
+}
+
+.badge-info,
+.outline-badge-info {
+    color: var(--inst-info) !important;
+    background: var(--inst-info-soft) !important;
+    border: 1px solid rgba(75, 111, 146, 0.28) !important;
+}
+
+.badge-secondary,
+.badge-dark,
+.outline-badge-secondary,
+.outline-badge-dark {
+    color: var(--inst-graphite-2) !important;
+    background: rgba(55, 65, 81, 0.08) !important;
+    border: 1px solid rgba(55, 65, 81, 0.22) !important;
+}
+
+[data-theme="dark"] .badge-secondary,
+[data-theme="dark"] .badge-dark,
+[data-theme="dark"] .outline-badge-secondary,
+[data-theme="dark"] .outline-badge-dark {
+    color: var(--inst-text-soft) !important;
+    background: rgba(185, 196, 209, 0.08) !important;
+    border-color: rgba(185, 196, 209, 0.18) !important;
+}
+
+/* ---------- 11) Cards / Panels / Widgets ---------- */
+.card-header,
+.widget-header,
+.panel-heading {
+    background: var(--inst-surface) !important;
+    border-bottom: 1px solid var(--inst-border) !important;
+    color: var(--inst-heading) !important;
+}
+
+.card-footer,
+.panel-footer {
+    background: var(--inst-surface-2) !important;
+    border-top: 1px solid var(--inst-border) !important;
+}
+
+.statbox,
+.widget {
+    overflow: hidden;
+}
+
+.widget-one p {
+    color: var(--inst-text-soft) !important;
+}
+
+/* ---------- 12) Alerts ---------- */
+.alert {
+    border-radius: 12px !important;
+    border-width: 1px !important;
+}
+
+.alert-primary {
+    color: var(--inst-primary) !important;
+    background: var(--inst-primary-soft) !important;
+    border-color: rgba(31, 78, 121, 0.22) !important;
+}
+
+.alert-success {
+    color: var(--inst-success) !important;
+    background: var(--inst-success-soft) !important;
+    border-color: rgba(79, 125, 92, 0.22) !important;
+}
+
+.alert-warning {
+    color: var(--inst-warning) !important;
+    background: var(--inst-warning-soft) !important;
+    border-color: rgba(139, 106, 61, 0.22) !important;
+}
+
+.alert-danger {
+    color: var(--inst-danger) !important;
+    background: var(--inst-danger-soft) !important;
+    border-color: rgba(147, 68, 84, 0.22) !important;
+}
+
+.alert-info {
+    color: var(--inst-info) !important;
+    background: var(--inst-info-soft) !important;
+    border-color: rgba(75, 111, 146, 0.22) !important;
+}
+
+/* ---------- 13) Modals ---------- */
+.modal-content {
+    background: var(--inst-surface) !important;
+    border: 1px solid var(--inst-border) !important;
+    border-radius: 14px !important;
+    box-shadow: var(--inst-shadow-md) !important;
+}
+
+.modal-header,
+.modal-footer {
+    border-color: var(--inst-border) !important;
+}
+
+.modal-title {
+    color: var(--inst-heading) !important;
+}
+
+/* ---------- 14) Tabs / Pills ---------- */
+.nav-tabs {
+    border-bottom-color: var(--inst-border) !important;
+}
+
+.nav-tabs .nav-link {
+    color: var(--inst-text-soft) !important;
+    border: 1px solid transparent !important;
+    border-radius: 10px 10px 0 0 !important;
+}
+
+.nav-tabs .nav-link:hover,
+.nav-tabs .nav-link:focus {
+    border-color: var(--inst-border) !important;
+    background: var(--inst-surface-2) !important;
+}
+
+.nav-tabs .nav-link.active,
+.nav-pills .nav-link.active {
+    color: var(--inst-primary) !important;
+    background: var(--inst-primary-soft) !important;
+    border-color: rgba(31, 78, 121, 0.18) !important;
+    font-weight: 700 !important;
+}
+
+.nav-pills .nav-link {
+    border-radius: 999px !important;
+    color: var(--inst-text-soft) !important;
+}
+
+/* ---------- 15) Lists / Timeline / Misc ---------- */
+.list-group-item {
+    background: var(--inst-surface) !important;
+    border-color: var(--inst-border) !important;
+    color: var(--inst-text) !important;
+}
+
+.list-group-item.active {
+    background: var(--inst-primary) !important;
+    border-color: var(--inst-primary) !important;
+    color: #fff !important;
+}
+
+blockquote.blockquote {
+    background: var(--inst-surface) !important;
+    border: 1px solid var(--inst-border) !important;
+    border-left: 3px solid var(--inst-primary) !important;
+    color: var(--inst-text) !important;
+    box-shadow: none !important;
+}
+
+.list-icon svg {
+    color: var(--inst-primary) !important;
+}
+
+.list-icon .list-text {
+    color: var(--inst-text) !important;
+}
+
+/* ---------- 16) Scrollbar ---------- */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--inst-surface-2);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--inst-border-strong);
+    border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--inst-graphite-3);
+}
+
+/* ---------- 17) Optional Theme Toggle Button ---------- */
+.theme-toggle-btn {
+    border: 1px solid var(--inst-border);
+    background: var(--inst-surface);
+    color: var(--inst-text);
+    border-radius: 999px;
+    padding: 0.45rem 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.theme-toggle-btn:hover {
+    background: var(--inst-primary-soft);
+    color: var(--inst-primary);
+    border-color: rgba(31, 78, 121, 0.22);
+}
+
+/* ---------- 18) Helpers ---------- */
+.bg-primary-soft {
+    background: var(--inst-primary-soft) !important;
+}
+
+.border-soft {
+    border-color: var(--inst-border) !important;
+}
+
+.text-soft {
+    color: var(--inst-text-soft) !important;
+}
+
+.text-heading {
+    color: var(--inst-heading) !important;
+}
+
+.shadow-none-force {
+    box-shadow: none !important;
+}
+
+/* ---------- 19) Mobile polish ---------- */
+@media (max-width: 767.98px) {
+    .page-header {
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .widget-content-area,
+    .card-body {
+        padding: 1rem;
+    }
+
+    .table thead th,
+    .table > thead > tr > th {
+        font-size: 11px !important;
+    }
+
+
+/* ---------- 20) DataTables Buttons Contrast Fix ---------- */
+    .dt-buttons .btn,
+    .dt-buttons .dt-button,
+    button.dt-button,
+    a.dt-button,
+    div.dt-button {
+        background: var(--inst-primary) !important;
+        border: 1px solid var(--inst-primary) !important;
+        color: #ffffff !important;
+        text-shadow: none !important;
+        box-shadow: none !important;
+        font-weight: 700 !important;
+    }
+
+    .dt-buttons .btn:hover,
+    .dt-buttons .dt-button:hover,
+    button.dt-button:hover,
+    a.dt-button:hover,
+    div.dt-button:hover,
+    .dt-buttons .btn:focus,
+    .dt-buttons .dt-button:focus,
+    button.dt-button:focus,
+    a.dt-button:focus,
+    div.dt-button:focus {
+        background: var(--inst-primary-strong) !important;
+        border-color: var(--inst-primary-strong) !important;
+        color: #ffffff !important;
+        box-shadow: 0 0 0 0.15rem rgba(31, 78, 121, 0.14) !important;
+    }
+
+    .dt-buttons .btn span,
+    .dt-buttons .dt-button span,
+    button.dt-button span,
+    a.dt-button span,
+    div.dt-button span {
+        color: #ffffff !important;
+    }
+
+    .dt-buttons .buttons-collection,
+    .dt-buttons .buttons-copy,
+    .dt-buttons .buttons-csv,
+    .dt-buttons .buttons-excel,
+    .dt-buttons .buttons-print {
+        background: var(--inst-primary) !important;
+        border-color: var(--inst-primary) !important;
+        color: #ffffff !important;
+    }
+
+    [data-theme="dark"] .dt-buttons .btn,
+    [data-theme="dark"] .dt-buttons .dt-button,
+    [data-theme="dark"] button.dt-button,
+    [data-theme="dark"] a.dt-button,
+    [data-theme="dark"] div.dt-button {
+        background: var(--inst-primary) !important;
+        border-color: var(--inst-primary) !important;
+        color: #0b1220 !important;
+    }
+
+    [data-theme="dark"] .dt-buttons .btn span,
+    [data-theme="dark"] .dt-buttons .dt-button span,
+    [data-theme="dark"] button.dt-button span,
+    [data-theme="dark"] a.dt-button span,
+    [data-theme="dark"] div.dt-button span {
+        color: #0b1220 !important;
+    }
+
+    [data-theme="dark"] .dt-buttons .btn:hover,
+    [data-theme="dark"] .dt-buttons .dt-button:hover,
+    [data-theme="dark"] button.dt-button:hover,
+    [data-theme="dark"] a.dt-button:hover,
+    [data-theme="dark"] div.dt-button:hover,
+    [data-theme="dark"] .dt-buttons .btn:focus,
+    [data-theme="dark"] .dt-buttons .dt-button:focus,
+    [data-theme="dark"] button.dt-button:focus,
+    [data-theme="dark"] a.dt-button:focus,
+    [data-theme="dark"] div.dt-button:focus {
+        background: var(--inst-primary-strong) !important;
+        border-color: var(--inst-primary-strong) !important;
+        color: #0b1220 !important;
+    }
+}

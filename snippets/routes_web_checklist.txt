@@ -1,0 +1,12 @@
+Agregar a routes/web.php dentro del grupo contractual:
+
+use App\Http\Controllers\Contractual\ChecklistRevisionContractualController;
+
+Route::get('revisiones/{revision}/snapshots/{snapshot}/checklist', [ChecklistRevisionContractualController::class, 'index'])
+    ->name('revisiones.snapshots.checklist.index');
+
+Route::get('revisiones/{revision}/snapshots/{snapshot}/checklist/create', [ChecklistRevisionContractualController::class, 'create'])
+    ->name('revisiones.snapshots.checklist.create');
+
+Route::post('revisiones/{revision}/snapshots/{snapshot}/checklist', [ChecklistRevisionContractualController::class, 'store'])
+    ->name('revisiones.snapshots.checklist.store');

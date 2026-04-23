@@ -1,0 +1,15 @@
+Agregar a routes/web.php dentro del grupo contractual:
+
+use App\Http\Controllers\Contractual\HallazgoRevisionContractualController;
+
+Route::get('revisiones/{revision}/snapshots/{snapshot}/hallazgos', [HallazgoRevisionContractualController::class, 'index'])
+    ->name('revisiones.snapshots.hallazgos.index');
+
+Route::get('revisiones/{revision}/snapshots/{snapshot}/hallazgos/create', [HallazgoRevisionContractualController::class, 'create'])
+    ->name('revisiones.snapshots.hallazgos.create');
+
+Route::post('revisiones/{revision}/snapshots/{snapshot}/hallazgos', [HallazgoRevisionContractualController::class, 'store'])
+    ->name('revisiones.snapshots.hallazgos.store');
+
+Route::get('revisiones/{revision}/snapshots/{snapshot}/hallazgos/{hallazgo}', [HallazgoRevisionContractualController::class, 'show'])
+    ->name('revisiones.snapshots.hallazgos.show');

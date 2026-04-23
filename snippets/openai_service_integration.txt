@@ -1,0 +1,17 @@
+// En App\Services\Contractual\OpenAIRevisionContractualService.php
+
+use App\Services\Contractual\PromptRevisionContractualBuilderService;
+
+// Dentro del método analizar(...)
+$prompt = app(PromptRevisionContractualBuilderService::class)->build($revision);
+
+$response = Http::withToken(config('services.openai.key'))
+    ->baseUrl(config('services.openai.base_url'))
+    ->withOptions([
+        'verify' => false, // temporal en local
+    ])
+    ->timeout(120)
+    ->post('/responses', [
+        'model' => config('services.openai.model'),
+        'input' => $prompt,
+    ]);
