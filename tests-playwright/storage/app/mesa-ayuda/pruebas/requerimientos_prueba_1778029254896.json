@@ -1,0 +1,13 @@
+{
+  "sistema": "Mesa de Ayuda - Sistema de Requerimientos",
+  "url_origen": "http://mesaayuda.intranet.pjud/mesa_ayuda/index.php",
+  "fecha_ejecucion": "2026-05-06T01:00:27.995Z",
+  "total_requerimientos_pendientes": 0,
+  "requerimientos": [],
+  "errores": [
+    {
+      "mensaje": "locator.evaluateAll: Target page, context or browser has been closed",
+      "stack": "locator.evaluateAll: Target page, context or browser has been closed\n    at C:\\laragon\\www\\cdp\\tests-playwright\\extraer-json-minimo.cjs:307:64"
+    }
+  ]
+}

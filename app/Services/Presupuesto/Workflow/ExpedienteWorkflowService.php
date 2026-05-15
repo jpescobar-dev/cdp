@@ -13,9 +13,8 @@ use RuntimeException;
 
 class ExpedienteWorkflowService
 {
-    public function __construct(
-        protected TareaWorkflowService $tareaWorkflowService
-    ) {
+    public function __construct(protected TareaWorkflowService $tareaWorkflowService)
+    {
     }
 
     public function cambiarEstado(
@@ -26,18 +25,16 @@ class ExpedienteWorkflowService
     ): ExpedientePresupuestario {
         return DB::transaction(function () use ($expediente, $estadoDestinoId, $usuarioEjecutor, $comentario) {
             $expediente->refresh();
-            $expediente->load('estado');
-
             $estadoOrigen = $expediente->estado;
             $estadoDestino = Estado::findOrFail($estadoDestinoId);
 
-            $transicion = $this->obtenerTransicionValida(
-                $estadoOrigen->id,
-                $estadoDestino->id
-            );
-
+            $transicion = $this->obtenerTransicionValida($estadoOrigen->id, $estadoDestino->id);
             $this->validarComentario($transicion, $comentario);
             $this->validarReglasNegocio($expediente, $estadoDestino);
+
+            if (!$expediente->responsable_rut) {
+                $expediente->responsable_rut = $usuarioEjecutor->rut;
+            }
 
             $expediente->estado_id = $estadoDestino->id;
 
@@ -64,11 +61,9 @@ class ExpedienteWorkflowService
             ]);
 
             $this->tareaWorkflowService->cerrarPendientes($expediente);
-            $tarea = $this->tareaWorkflowService->crearPorEstado(
-                $expediente,
-                $estadoDestino,
-                $usuarioEjecutor->rut
-            );
+            $tarea = $transicion->genera_tarea
+                ? $this->tareaWorkflowService->crearPorEstado($expediente, $estadoDestino, $usuarioEjecutor->rut)
+                : null;
 
             event(new ExpedienteEstadoCambiado(
                 expediente: $expediente->fresh(['estado', 'responsable', 'solicitante']),
@@ -88,6 +83,8 @@ class ExpedienteWorkflowService
         $transicion = TransicionEstado::query()
             ->where('estado_origen_id', $estadoOrigenId)
             ->where('estado_destino_id', $estadoDestinoId)
+            ->where('tabla_referencia', 'expedientes_presupuestarios')
+            ->where('activo', true)
             ->first();
 
         if (!$transicion) {
@@ -99,27 +96,22 @@ class ExpedienteWorkflowService
 
     protected function validarComentario(TransicionEstado $transicion, ?string $comentario): void
     {
-        if ($transicion->requiere_comentario && blank($comentario)) {
+        if ($transicion->requiere_comentario && trim((string) $comentario) === '') {
             throw new RuntimeException('Esta transición requiere comentario obligatorio.');
         }
     }
 
     protected function validarReglasNegocio(ExpedientePresupuestario $expediente, Estado $estadoDestino): void
     {
-        if ($estadoDestino->nombre === 'En revisión' && blank($expediente->responsable_rut)) {
-            throw new RuntimeException('Debes asignar un responsable antes de pasar a revisión.');
-        }
-
         if ($estadoDestino->nombre === 'Aprobado') {
-            if (blank($expediente->glosa) || blank($expediente->cuenta_presupuestaria) || $expediente->monto <= 0) {
-                throw new RuntimeException('No puedes aprobar un expediente con datos presupuestarios incompletos.');
+            $observacionesAbiertas = $expediente->observaciones()->where('resuelta', false)->exists();
+            if ($observacionesAbiertas) {
+                throw new RuntimeException('No se puede aprobar un expediente con observaciones abiertas.');
             }
         }
 
-        if ($estadoDestino->nombre === 'Emitido') {
-            if ($expediente->estado?->nombre !== 'Aprobado') {
-                throw new RuntimeException('Solo se puede emitir un expediente previamente aprobado.');
-            }
+        if ($estadoDestino->nombre === 'Emitido' && empty($expediente->fecha_aprobacion)) {
+            throw new RuntimeException('No se puede emitir un expediente sin aprobación previa.');
         }
     }
 }

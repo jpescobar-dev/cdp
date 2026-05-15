@@ -3,13 +3,11 @@
 namespace App\Models\Presupuesto;
 
 use App\Models\Funcionario;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ExpedienteObservacion extends Model
 {
-    use HasFactory;
-
     protected $table = 'expediente_observaciones';
 
     protected $fillable = [
@@ -23,12 +21,12 @@ class ExpedienteObservacion extends Model
         'resuelta' => 'boolean',
     ];
 
-    public function expediente()
+    public function expediente(): BelongsTo
     {
         return $this->belongsTo(ExpedientePresupuestario::class, 'expediente_id');
     }
 
-    public function usuario()
+    public function usuario(): BelongsTo
     {
         return $this->belongsTo(Funcionario::class, 'usuario_rut', 'rut');
     }

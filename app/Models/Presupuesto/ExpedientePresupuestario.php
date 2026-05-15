@@ -2,15 +2,21 @@
 
 namespace App\Models\Presupuesto;
 
+use App\Models\Ccosto;
+use App\Models\CdpBorrador;
+use App\Models\Cfinanciero;
 use App\Models\Estado;
 use App\Models\Funcionario;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\MesaAyudaRequerimiento;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ExpedientePresupuestario extends Model
 {
-    use HasFactory, SoftDeletes;
+    use SoftDeletes;
 
     protected $table = 'expedientes_presupuestarios';
 
@@ -39,6 +45,7 @@ class ExpedientePresupuestario extends Model
     ];
 
     protected $casts = [
+        'anio' => 'integer',
         'fecha_ingreso' => 'datetime',
         'fecha_aprobacion' => 'datetime',
         'fecha_emision' => 'datetime',
@@ -46,38 +53,58 @@ class ExpedientePresupuestario extends Model
         'total_moneda_compra' => 'decimal:2',
     ];
 
-    public function estado()
+    public function estado(): BelongsTo
     {
-        return $this->belongsTo(Estado::class);
+        return $this->belongsTo(Estado::class, 'estado_id');
     }
 
-    public function solicitante()
+    public function solicitante(): BelongsTo
     {
         return $this->belongsTo(Funcionario::class, 'solicitante_rut', 'rut');
     }
 
-    public function responsable()
+    public function responsable(): BelongsTo
     {
         return $this->belongsTo(Funcionario::class, 'responsable_rut', 'rut');
     }
 
-    public function historial()
+    public function centroCosto(): BelongsTo
+    {
+        return $this->belongsTo(Ccosto::class, 'ccosto', 'ccosto');
+    }
+
+    public function centroFinanciero(): BelongsTo
+    {
+        return $this->belongsTo(Cfinanciero::class, 'cfinanciero', 'cfinanciero');
+    }
+
+    public function historial(): HasMany
     {
         return $this->hasMany(ExpedienteHistorial::class, 'expediente_id');
     }
 
-    public function tareas()
+    public function tareas(): HasMany
     {
         return $this->hasMany(ExpedienteTarea::class, 'expediente_id');
     }
 
-    public function observaciones()
+    public function observaciones(): HasMany
     {
         return $this->hasMany(ExpedienteObservacion::class, 'expediente_id');
     }
 
-    public function adjuntos()
+    public function adjuntos(): HasMany
     {
         return $this->hasMany(ExpedienteAdjunto::class, 'expediente_id');
+    }
+
+    public function requerimientoMesaAyuda(): HasOne
+    {
+        return $this->hasOne(MesaAyudaRequerimiento::class, 'expediente_presupuestario_id');
+    }
+
+    public function cdpBorradores(): HasMany
+    {
+        return $this->hasMany(CdpBorrador::class, 'expediente_presupuestario_id');
     }
 }

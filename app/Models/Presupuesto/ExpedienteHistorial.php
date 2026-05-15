@@ -4,13 +4,11 @@ namespace App\Models\Presupuesto;
 
 use App\Models\Estado;
 use App\Models\Funcionario;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ExpedienteHistorial extends Model
 {
-    use HasFactory;
-
     protected $table = 'expediente_historial';
 
     protected $fillable = [
@@ -25,17 +23,17 @@ class ExpedienteHistorial extends Model
         'fecha_cambio' => 'datetime',
     ];
 
-    public function expediente()
+    public function expediente(): BelongsTo
     {
         return $this->belongsTo(ExpedientePresupuestario::class, 'expediente_id');
     }
 
-    public function estado()
+    public function estado(): BelongsTo
     {
         return $this->belongsTo(Estado::class, 'estado_id');
     }
 
-    public function usuario()
+    public function usuario(): BelongsTo
     {
         return $this->belongsTo(Funcionario::class, 'usuario_rut', 'rut');
     }

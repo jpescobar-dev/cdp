@@ -3,13 +3,11 @@
 namespace App\Models\Presupuesto;
 
 use App\Models\Funcionario;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ExpedienteAdjunto extends Model
 {
-    use HasFactory;
-
     protected $table = 'expediente_adjuntos';
 
     protected $fillable = [
@@ -20,13 +18,18 @@ class ExpedienteAdjunto extends Model
         'subido_por',
     ];
 
-    public function expediente()
+    public function expediente(): BelongsTo
     {
         return $this->belongsTo(ExpedientePresupuestario::class, 'expediente_id');
     }
 
-    public function usuario()
+    public function usuarioCarga(): BelongsTo
     {
         return $this->belongsTo(Funcionario::class, 'subido_por', 'rut');
+    }
+
+    public function subidoPor(): BelongsTo
+    {
+        return $this->usuarioCarga();
     }
 }

@@ -2,77 +2,26 @@
 
 namespace Database\Seeders;
 
-use App\Models\Estado;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class EstadoPresupuestoSeeder extends Seeder
 {
     public function run(): void
     {
-        $tabla = 'presupuesto';
+        $tabla = 'expedientes_presupuestarios';
 
         $estados = [
-            [
-                'nombre' => 'DIGITADO',
-                'descripcion' => 'DIGITADO',
-                'tabla_referencia' => $tabla,
-            ],
-            [
-                'nombre' => 'IMPORTADO',
-                'descripcion' => 'IMPORTACION MASIVA',
-                'tabla_referencia' => $tabla,
-            ],
-            [
-                'nombre' => 'PREAFECTACION',
-                'descripcion' => 'FICHA INICIO',
-                'tabla_referencia' => $tabla,
-            ],
-            [
-                'nombre' => 'REVISION',
-                'descripcion' => 'EN REVISION',
-                'tabla_referencia' => $tabla,
-            ],
-            [
-                'nombre' => 'APROBADO',
-                'descripcion' => 'APROBADO',
-                'tabla_referencia' => $tabla,
-            ],
-            [
-                'nombre' => 'RECHAZADO',
-                'descripcion' => 'RECHAZADO',
-                'tabla_referencia' => $tabla,
-            ],
-            [
-                'nombre' => 'AFECTACION',
-                'descripcion' => 'ORDEN DE COMPRA',
-                'tabla_referencia' => $tabla,
-            ],
-            [
-                'nombre' => 'OBLIGACION',
-                'descripcion' => 'CERTIFICADO DE DISPONIBILIDAD PRESUPUESTARIA',
-                'tabla_referencia' => $tabla,
-            ],
-            [
-                'nombre' => 'PAGADA',
-                'descripcion' => 'EGRESO',
-                'tabla_referencia' => $tabla,
-            ],
-            [
-                'nombre' => 'TERMINADA',
-                'descripcion' => 'EBOOK',
-                'tabla_referencia' => $tabla,
-            ],
+            ['nombre' => 'Ingresado', 'descripcion' => 'Expediente creado y pendiente de revisión.', 'orden' => 1, 'es_final' => false, 'genera_tarea' => true, 'genera_notificacion' => true],
+            ['nombre' => 'En revisión', 'descripcion' => 'Expediente en revisión presupuestaria.', 'orden' => 2, 'es_final' => false, 'genera_tarea' => true, 'genera_notificacion' => true],
+            ['nombre' => 'Aprobado', 'descripcion' => 'Expediente aprobado para emisión.', 'orden' => 3, 'es_final' => false, 'genera_tarea' => true, 'genera_notificacion' => true],
+            ['nombre' => 'Emitido', 'descripcion' => 'Documento emitido y proceso finalizado.', 'orden' => 4, 'es_final' => true, 'genera_tarea' => false, 'genera_notificacion' => true],
         ];
 
         foreach ($estados as $estado) {
-            Estado::updateOrCreate(
-                [
-                    'nombre' => $estado['nombre'],
-                    'tabla_referencia' => $estado['tabla_referencia'],
-                ],
-                [
-                    'descripcion' => $estado['descripcion'],
-                ]
+            DB::table('estados')->updateOrInsert(
+                ['nombre' => $estado['nombre'], 'tabla_referencia' => $tabla],
+                array_merge($estado, ['tabla_referencia' => $tabla, 'created_at' => now(), 'updated_at' => now()])
             );
         }
     }

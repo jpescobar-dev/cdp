@@ -3,13 +3,11 @@
 namespace App\Models\Presupuesto;
 
 use App\Models\Funcionario;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ExpedienteTarea extends Model
 {
-    use HasFactory;
-
     protected $table = 'expediente_tareas';
 
     protected $fillable = [
@@ -28,17 +26,17 @@ class ExpedienteTarea extends Model
         'fecha_cierre' => 'datetime',
     ];
 
-    public function expediente()
+    public function expediente(): BelongsTo
     {
         return $this->belongsTo(ExpedientePresupuestario::class, 'expediente_id');
     }
 
-    public function asignado()
+    public function asignado(): BelongsTo
     {
         return $this->belongsTo(Funcionario::class, 'asignado_a', 'rut');
     }
 
-    public function creador()
+    public function creador(): BelongsTo
     {
         return $this->belongsTo(Funcionario::class, 'creado_por', 'rut');
     }

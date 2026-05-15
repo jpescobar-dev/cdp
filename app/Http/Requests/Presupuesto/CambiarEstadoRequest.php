@@ -18,12 +18,4 @@ class CambiarEstadoRequest extends FormRequest
             'comentario' => ['nullable', 'string', 'max:2000'],
         ];
     }
-
-    public function messages(): array
-    {
-        return [
-            'estado_destino_id.required' => 'Debes indicar el estado de destino.',
-            'estado_destino_id.exists' => 'El estado de destino no es válido.',
-        ];
-    }
 }

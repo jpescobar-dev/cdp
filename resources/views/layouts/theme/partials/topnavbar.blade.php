@@ -13,100 +13,164 @@
 
         <ul class="list-unstyled menu-categories" id="topAccordion">
 
-            {{-- INICIO --}}
             @can('ver dashboard')
                 <li class="menu single-menu {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-                    <a href="{{ route('dashboard') }}"
-                       aria-expanded="{{ request()->routeIs('dashboard') ? 'true' : 'false' }}"
-                       class="dropdown-toggle">
+                    <a href="{{ route('dashboard') }}" class="dropdown-toggle">
                         <div>
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                 width="24"
-                                 height="24"
-                                 viewBox="0 0 24 24"
-                                 fill="none"
-                                 stroke="currentColor"
-                                 stroke-width="2"
-                                 stroke-linecap="round"
-                                 stroke-linejoin="round"
-                                 class="feather feather-home">
-                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                            </svg>
+                            <i data-feather="home"></i>
                             <span>Inicio</span>
                         </div>
                     </a>
                 </li>
             @endcan
 
-            {{-- SISTEMA --}}
             @php
-                $puedeVerSistema = auth()->check() && (
-                    auth()->user()->can('ver usuarios')
-                    || auth()->user()->can('ver revisiones contractuales')
-                );
+                $menuMesaAyudaActivo = request()->routeIs('mesa-ayuda.*');
+            @endphp
 
-                $menuSistemaActivo =
-                    request()->routeIs('usuarios.*') ||
-                    request()->routeIs('contractual.*');
+            <li class="menu single-menu {{ $menuMesaAyudaActivo ? 'active' : '' }}">
+                <a href="#menu-mesa-ayuda"
+                   data-toggle="collapse"
+                   aria-expanded="{{ $menuMesaAyudaActivo ? 'true' : 'false' }}"
+                   class="dropdown-toggle">
+                    <div>
+                        <i data-feather="inbox"></i>
+                        <span>Mesa de Ayuda</span>
+                    </div>
+                    <i data-feather="chevron-down"></i>
+                </a>
+
+                <ul class="collapse submenu list-unstyled {{ $menuMesaAyudaActivo ? 'show' : '' }}"
+                    id="menu-mesa-ayuda"
+                    data-parent="#topAccordion">
+
+                    @if(Route::has('mesa-ayuda.extracciones.index'))
+                        <li class="{{ request()->routeIs('mesa-ayuda.extracciones.*') ? 'active' : '' }}">
+                            <a href="{{ route('mesa-ayuda.extracciones.index') }}">
+                                Conexión / Extracciones
+                            </a>
+                        </li>
+                    @endif
+
+                    @if(Route::has('mesa-ayuda.requerimientos.index'))
+                        <li class="{{ request()->routeIs('mesa-ayuda.requerimientos.*') ? 'active' : '' }}">
+                            <a href="{{ route('mesa-ayuda.requerimientos.index') }}">
+                                Requerimientos
+                            </a>
+                        </li>
+                    @endif
+
+                    @if(Route::has('mesa-ayuda.cdp-borradores.index'))
+                        <li class="{{ request()->routeIs('mesa-ayuda.cdp-borradores.*') ? 'active' : '' }}">
+                            <a href="{{ route('mesa-ayuda.cdp-borradores.index') }}">
+                                Borradores CDP
+                            </a>
+                        </li>
+                    @endif
+
+                </ul>
+            </li>
+
+            @php
+                $menuPresupuestoActivo = request()->routeIs('presupuesto.expedientes.*')
+                    || request()->routeIs('cdp.solicitudes.*');
+            @endphp
+
+            <li class="menu single-menu {{ $menuPresupuestoActivo ? 'active' : '' }}">
+                <a href="#menu-presupuesto"
+                   data-toggle="collapse"
+                   aria-expanded="{{ $menuPresupuestoActivo ? 'true' : 'false' }}"
+                   class="dropdown-toggle">
+                    <div>
+                        <i data-feather="file-text"></i>
+                        <span>Presupuesto</span>
+                    </div>
+                    <i data-feather="chevron-down"></i>
+                </a>
+
+                <ul class="collapse submenu list-unstyled {{ $menuPresupuestoActivo ? 'show' : '' }}"
+                    id="menu-presupuesto"
+                    data-parent="#topAccordion">
+
+                    @if(Route::has('cdp.solicitudes.index'))
+                        <li class="{{ request()->routeIs('cdp.solicitudes.*') ? 'active' : '' }}">
+                            <a href="{{ route('cdp.solicitudes.index') }}">Solicitudes CDP</a>
+                        </li>
+                    @endif
+
+                    @if(Route::has('presupuesto.expedientes.index'))
+                        <li class="{{ request()->routeIs('presupuesto.expedientes.*') ? 'active' : '' }}">
+                            <a href="{{ route('presupuesto.expedientes.index') }}">Expedientes</a>
+                        </li>
+                    @endif
+
+                </ul>
+            </li>
+
+            @php
+                $menuAgentesActivo = request()->routeIs('agentes.*');
+            @endphp
+
+            @if(Route::has('agentes.ejecuciones.index') || Route::has('agentes.monitor'))
+                <li class="menu single-menu {{ $menuAgentesActivo ? 'active' : '' }}">
+                    <a href="#menu-agentes"
+                       data-toggle="collapse"
+                       aria-expanded="{{ $menuAgentesActivo ? 'true' : 'false' }}"
+                       class="dropdown-toggle">
+                        <div>
+                            <i data-feather="cpu"></i>
+                            <span>Agentes</span>
+                        </div>
+                        <i data-feather="chevron-down"></i>
+                    </a>
+
+                    <ul class="collapse submenu list-unstyled {{ $menuAgentesActivo ? 'show' : '' }}"
+                        id="menu-agentes"
+                        data-parent="#topAccordion">
+                        @if(Route::has('agentes.ejecuciones.index'))
+                            <li class="{{ request()->routeIs('agentes.ejecuciones.*') ? 'active' : '' }}">
+                                <a href="{{ route('agentes.ejecuciones.index') }}">Ejecuciones</a>
+                            </li>
+                        @endif
+                        @if(Route::has('agentes.monitor'))
+                            <li class="{{ request()->routeIs('agentes.monitor') ? 'active' : '' }}">
+                                <a href="{{ route('agentes.monitor') }}">Monitor</a>
+                            </li>
+                        @endif
+                    </ul>
+                </li>
+            @endif
+
+            @php
+                $puedeVerSistema = auth()->check() && auth()->user()->can('ver usuarios');
+                $menuSistemaActivo = request()->routeIs('usuarios.*');
             @endphp
 
             @if($puedeVerSistema)
                 <li class="menu single-menu {{ $menuSistemaActivo ? 'active' : '' }}">
                     <a href="#menu-sistema"
-                       data-bs-toggle="collapse"
+                       data-toggle="collapse"
                        aria-expanded="{{ $menuSistemaActivo ? 'true' : 'false' }}"
-                       class="dropdown-toggle autodroprown">
+                       class="dropdown-toggle">
                         <div>
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                 width="24"
-                                 height="24"
-                                 viewBox="0 0 24 24"
-                                 fill="none"
-                                 stroke="currentColor"
-                                 stroke-width="2"
-                                 stroke-linecap="round"
-                                 stroke-linejoin="round"
-                                 class="feather feather-settings">
-                                <circle cx="12" cy="12" r="3"></circle>
-                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c0 .66.39 1.26 1 1.51.16.07.33.1.51.1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-                            </svg>
+                            <i data-feather="settings"></i>
                             <span>Sistema</span>
                         </div>
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                             width="24"
-                             height="24"
-                             viewBox="0 0 24 24"
-                             fill="none"
-                             stroke="currentColor"
-                             stroke-width="2"
-                             stroke-linecap="round"
-                             stroke-linejoin="round"
-                             class="feather feather-chevron-down">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
+                        <i data-feather="chevron-down"></i>
                     </a>
-
                     <ul class="collapse submenu list-unstyled {{ $menuSistemaActivo ? 'show' : '' }}"
                         id="menu-sistema"
                         data-parent="#topAccordion">
-
                         @can('ver usuarios')
-                            <li class="{{ request()->routeIs('usuarios.*') ? 'active' : '' }}">
-                                <a href="{{ route('usuarios.index') }}">Usuarios</a>
-                            </li>
+                            @if(Route::has('usuarios.index'))
+                                <li class="{{ request()->routeIs('usuarios.*') ? 'active' : '' }}">
+                                    <a href="{{ route('usuarios.index') }}">Usuarios</a>
+                                </li>
+                            @endif
                         @endcan
-
-                        @can('ver revisiones contractuales')
-                            <li class="{{ request()->routeIs('contractual.revisiones.*') ? 'active' : '' }}">
-                                <a href="{{ route('contractual.revisiones.index') }}">Revisiones Contractuales</a>
-                            </li>
-                        @endcan
-
                     </ul>
                 </li>
             @endif
-
         </ul>
     </nav>
 </div>

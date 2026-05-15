@@ -23,6 +23,13 @@ class DatabaseSeeder extends Seeder
             AdminUserSeeder::class,
             RolePermissionSeeder::class,
             EstadoSeeder::class,
+            ProveedoresSeeder::class, 
+            ItemsSeeder::class, 
+            CatalogosSeeder::class,  
+            AsignacionesSeeder::class,
+            CfinancierosSeeder::class, 
+            CcostosSeeder::class,
+            // ClientesmedidoresSeeder::class,
            
         ]);
 

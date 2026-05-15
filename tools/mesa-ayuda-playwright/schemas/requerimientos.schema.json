@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MesaAyudaExtraccion",
+  "type": "object",
+  "required": ["sistema", "fecha_ejecucion", "total_requerimientos_pendientes", "requerimientos"],
+  "properties": {
+    "sistema": { "type": "string" },
+    "url_origen": { "type": ["string", "null"] },
+    "fecha_ejecucion": { "type": "string" },
+    "total_requerimientos_pendientes": { "type": "integer", "minimum": 0 },
+    "requerimientos": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["head", "capturado_correctamente"],
+        "properties": {
+          "head": {
+            "type": "object",
+            "required": ["folio"],
+            "properties": {
+              "folio": { "type": "string" },
+              "fecha_hora": { "type": ["string", "null"] },
+              "estado": { "type": ["string", "null"] },
+              "componente": { "type": ["string", "null"] },
+              "requerimiento": { "type": ["string", "null"] },
+              "tribunal": { "type": ["string", "null"] },
+              "solicitado_por": { "type": ["string", "null"] },
+              "solicitado_para": { "type": ["string", "null"] },
+              "tiempo_estimado_solucion": { "type": ["string", "null"] }
+            }
+          },
+          "body": { "type": ["object", "null"] },
+          "clasificacion": { "type": ["object", "null"] },
+          "routing": { "type": ["object", "null"] },
+          "capturado_correctamente": { "type": "boolean" },
+          "errores": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

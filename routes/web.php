@@ -1,13 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EstadoController;
 
-use App\Http\Controllers\Contractual\DocumentoRevisionContractualController;
-use App\Http\Controllers\Contractual\RevisionContractualController;
-use App\Http\Controllers\Contractual\SnapshotRevisionContractualController;
-use App\Http\Controllers\Contractual\AnalisisRevisionContractualController;
+use App\Http\Controllers\Presupuesto\ExpedienteWorkflowController;
+use App\Http\Controllers\Presupuesto\ExpedienteController;
 
 
 
@@ -35,9 +34,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth', 'permission:ver dashboard'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
 
@@ -52,47 +49,34 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware('auth:sanctum')->get('/estados', [EstadoController::class, 'index']);
 
 
-Route::middleware(['auth'])
-    ->prefix('contractual')
-    ->name('contractual.')
+
+Route::prefix('presupuesto')->name('presupuesto.')->group(function () {
+    Route::post(
+        'expedientes/{expediente}/cambiar-estado',
+        [ExpedienteWorkflowController::class, 'cambiarEstado']
+    )->name('expedientes.cambiar-estado');
+});
+
+
+
+Route::prefix('presupuesto')
+    ->name('presupuesto.')
+    ->middleware(['auth'])
     ->group(function () {
 
-        Route::resource('revisiones', RevisionContractualController::class)
-            ->parameters([
-                'revisiones' => 'revision',
-            ]);
+        Route::resource('expedientes', ExpedienteController::class);
 
-        Route::get('revisiones/{revision}/documentos', [DocumentoRevisionContractualController::class, 'index'])
-            ->name('revisiones.documentos.index');
-
-        Route::post('revisiones/{revision}/documentos', [DocumentoRevisionContractualController::class, 'store'])
-            ->name('revisiones.documentos.store');
-
-        Route::delete('revisiones/{revision}/documentos/{documento}', [DocumentoRevisionContractualController::class, 'destroy'])
-            ->name('revisiones.documentos.destroy');
-
-    // rutas snapshots
-        Route::get('revisiones/{revision}/snapshots', [SnapshotRevisionContractualController::class, 'index'])
-            ->name('revisiones.snapshots.index');
-
-        Route::post('revisiones/{revision}/snapshots', [SnapshotRevisionContractualController::class, 'store'])
-            ->name('revisiones.snapshots.store');
-
-        Route::get('revisiones/{revision}/snapshots/{snapshot}', [SnapshotRevisionContractualController::class, 'show'])
-            ->name('revisiones.snapshots.show');
-
-          
-
-        Route::post('revisiones/{revision}/analizar', [AnalisisRevisionContractualController::class, 'store'])->name('revisiones.analizar');
-
-
+        Route::post(
+            'expedientes/{expediente}/cambiar-estado',
+            [ExpedienteWorkflowController::class, 'cambiarEstado']
+        )->name('expedientes.cambiar-estado');
     });
 
+require __DIR__.'/cdp.php';
 
-
+require __DIR__.'/mesa_ayuda.php';
 
 require __DIR__.'/auth.php';
-
 
 
 

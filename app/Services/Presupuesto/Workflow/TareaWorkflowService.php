@@ -21,34 +21,25 @@ class TareaWorkflowService
             ]);
     }
 
-    public function crearPorEstado(
-        ExpedientePresupuestario $expediente,
-        Estado $estadoDestino,
-        string $usuarioRut
-    ): ?ExpedienteTarea {
+    public function crearPorEstado(ExpedientePresupuestario $expediente, Estado $estadoDestino, string $usuarioRut): ?ExpedienteTarea
+    {
         $titulo = null;
         $descripcion = null;
-        $asignadoA = null;
+        $asignadoA = $expediente->responsable_rut ?: $usuarioRut;
 
         switch ($estadoDestino->nombre) {
             case 'En revisión':
                 $titulo = 'Revisar expediente presupuestario';
-                $descripcion = 'Revisar antecedentes y validar consistencia del expediente.';
-                $asignadoA = $expediente->responsable_rut;
+                $descripcion = 'Revisar antecedentes, validar consistencia y preparar el expediente.';
                 break;
-
             case 'Aprobado':
                 $titulo = 'Emitir documento presupuestario';
                 $descripcion = 'El expediente fue aprobado y queda listo para emisión.';
-                $asignadoA = $expediente->responsable_rut;
                 break;
-
             case 'Emitido':
                 return null;
-        }
-
-        if (!$titulo || !$asignadoA) {
-            return null;
+            default:
+                return null;
         }
 
         return ExpedienteTarea::create([

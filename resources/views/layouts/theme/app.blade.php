@@ -74,7 +74,5 @@
     </script>
 
     @yield('scripts')
-
-    <script src="{{ asset('assets/css/theme-institutional-toggle.js') }}"></script>
 </body>
 </html>

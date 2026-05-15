@@ -6,12 +6,13 @@ use App\Models\Estado;
 use App\Models\Funcionario;
 use App\Models\Presupuesto\ExpedientePresupuestario;
 use App\Models\Presupuesto\ExpedienteTarea;
+use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
 class ExpedienteEstadoCambiado
 {
-    use Dispatchable, SerializesModels;
+    use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public function __construct(
         public ExpedientePresupuestario $expediente,
